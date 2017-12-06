@@ -7,7 +7,9 @@ addons:
     packages:
       - gcc-arm-embedded
 script:
-  - make release OUT=bcf-kit-wireless-controller-${TRAVIS_TAG} VERSION=${TRAVIS_TAG}
+  - make release OUT=bcf-kit-wireless-controller-rgbw144-${TRAVIS_TAG} VERSION=${TRAVIS_TAG} LED_STRIP_COUNT=144 LED_STRIP_TYPE=4
+  - make release OUT=bcf-kit-wireless-controller-rgbw72-${TRAVIS_TAG} VERSION=${TRAVIS_TAG} LED_STRIP_COUNT=72 LED_STRIP_TYPE=4
+  - make release OUT=bcf-kit-wireless-controller-rgb150-${TRAVIS_TAG} VERSION=${TRAVIS_TAG} LED_STRIP_COUNT=150 LED_STRIP_TYPE=3
 deploy:
   skip_cleanup: true
   file_glob: true
