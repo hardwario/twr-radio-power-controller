@@ -5,6 +5,14 @@
 #define VERSION "vdev"
 #endif
 
+#ifndef LED_STRIP_COUNT
+#define LED_STRIP_COUNT 144
+#endif
+
+#ifndef LED_STRIP_TYPE
+#define LED_STRIP_TYPE 4
+#endif
+
 #include <bcl.h>
 
 typedef struct
