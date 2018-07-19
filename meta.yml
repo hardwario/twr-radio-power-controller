@@ -1,0 +1,8 @@
+article: https://www.bigclown.com/doc/projects/wireless-smart-led-strip/
+images:
+  - title:
+    url: https://www.bigclown.com/doc/projects/wireless-smart-led-strip/project-thermostat-relay-bc.png
+assembly:
+  - name: BigClown Cover Module
+  - name: BigClown Core Module
+  - name: BigClown Power Module
