@@ -2,13 +2,14 @@
 
 # Firmware for BigClown Power Controller Kit
 
-[![Travis](https://img.shields.io/travis/bigclownlabs/bcf-kit-wireless-power-controller/master.svg)](https://travis-ci.org/bigclownlabs/bcf-kit-wireless-power-controller)
-[![Release](https://img.shields.io/github/release/bigclownlabs/bcf-kit-wireless-power-controller.svg)](https://github.com/bigclownlabs/bcf-kit-wireless-power-controller/releases)
-[![License](https://img.shields.io/github/license/bigclownlabs/bcf-kit-wireless-power-controller.svg)](https://github.com/bigclownlabs/bcf-kit-wireless-power-controller/blob/master/LICENSE)
+[![Travis](https://img.shields.io/travis/bigclownlabs/bcf-radio-power-controller/master.svg)](https://travis-ci.org/bigclownlabs/bcf-radio-power-controller)
+[![Release](https://img.shields.io/github/release/bigclownlabs/bcf-radio-power-controller.svg)](https://github.com/bigclownlabs/bcf-radio-power-controller/releases)
+[![License](https://img.shields.io/github/license/bigclownlabs/bcf-radio-power-controller.svg)](https://github.com/bigclownlabs/bcf-radio-power-controller/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/follow/BigClownLabs.svg?style=social&label=Follow)](https://twitter.com/BigClownLabs)
 
-This repository contains firmware for Power Controller Kit
+See the project documentation on this link:
 
+**https://www.bigclown.com/doc/projects/radio-smart-led-strip/**
 
 ## License
 
