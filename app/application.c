@@ -325,7 +325,7 @@ void application_init(void)
 
     led_strip.update_task_id = bc_scheduler_register(led_strip_update_task, NULL, 0);
 
-    bc_radio_pairing_request("kit-power-controller", VERSION);
+    bc_radio_pairing_request("power-controller", VERSION);
 
     bc_led_pulse(&led, 2000);
 }
