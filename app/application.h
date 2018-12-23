@@ -13,6 +13,10 @@
 #define LED_STRIP_TYPE 4
 #endif
 
+#ifndef LED_STRIP_SWAP_RG
+#define LED_STRIP_SWAP_RG 0
+#endif
+
 #include <bcl.h>
 
 typedef struct
