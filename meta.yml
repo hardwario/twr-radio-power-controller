@@ -2,8 +2,8 @@ article: https://www.bigclown.com/doc/projects/radio-smart-led-strip/
 video: https://youtu.be/idxAoc2q6O0
 images:
   - title:
-    url: https://cdn.myshoptet.com/usr/shop.hardwario.com/user/shop/category_portrait/184-4_power-controller-kit-a1.jpg?5de56e1c
+    url: https://github.com/hardwario/website/blob/master/static/kits-images/co2-monitor/main.png
 assembly:
-  - name: BigClown Cover Module
-  - name: BigClown Core Module
-  - name: BigClown Power Module
+  - name: HARDWARIO Cover Module
+  - name: HARDWARIO Core Module
+  - name: HARDWARIO Power Module
