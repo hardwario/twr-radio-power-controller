@@ -1,8 +1,8 @@
-article: https://www.bigclown.com/doc/projects/radio-smart-led-strip/
+article: https://developers.hardwario.com/projects/radio-smart-led-strip
 video: https://youtu.be/idxAoc2q6O0
 images:
   - title:
-    url: https://github.com/hardwario/website/blob/master/static/kits-images/co2-monitor/main.png
+    url: https://raw.githubusercontent.com/hardwario/website/master/static/kits-images/co2-monitor/main.png
 assembly:
   - name: HARDWARIO Cover Module
   - name: HARDWARIO Core Module
