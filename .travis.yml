@@ -4,19 +4,19 @@ env:
 install:
   - pip install -U platformio
 script:
-  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"'" -DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4
+  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"' -DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4"
   - pio run -e release
   - mv .pio/build/release/firmware.bin twr-radio-power-controller-rgbw144-${VERSION}.bin
 
-  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"'" -DLED_STRIP_COUNT=72 -DLED_STRIP_TYPE=4
+  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"' -DLED_STRIP_COUNT=72 -DLED_STRIP_TYPE=4"
   - pio run -e release
   - mv .pio/build/release/firmware.bin twr-radio-power-controller-rgbw72-${VERSION}.bin
 
-  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"'" -DLED_STRIP_COUNT=36 -DLED_STRIP_TYPE=4
+  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"' -DLED_STRIP_COUNT=36 -DLED_STRIP_TYPE=4"
   - pio run -e release
   - mv .pio/build/release/firmware.bin twr-radio-power-controller-rgbw36-${VERSION}.bin
 
-  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"'" -DLED_STRIP_COUNT=150 -DLED_STRIP_TYPE=3
+  - export PLATFORMIO_BUILD_FLAGS="-D'VERSION=\"${VERSION}\"' -DLED_STRIP_COUNT=150 -DLED_STRIP_TYPE=3"
   - pio run -e release
   - mv .pio/build/release/firmware.bin twr-radio-power-controller-rgb150-${VERSION}.bin
 
