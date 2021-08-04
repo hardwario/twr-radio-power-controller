@@ -49,4 +49,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          files: *.bin
+          files: .*.bin
