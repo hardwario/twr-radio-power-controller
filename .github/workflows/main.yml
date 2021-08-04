@@ -19,9 +19,6 @@ jobs:
           update-wheel: "false"
       - name: Build PlatformIO project
         run: |
-          echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" | tee -a $GITHUB_ENV
-          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY##*/}" | tee -a $GITHUB_ENV
-
           export PLATFORMIO_BUILD_FLAGS="-DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4"
           pio run -e release
           mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-rgbw144-${GITHUB_REF#refs/*/}.bin
@@ -42,7 +39,6 @@ jobs:
         run: |
           echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" | tee -a $GITHUB_ENV
           echo "REPOSITORY_NAME=${GITHUB_REPOSITORY##*/}" | tee -a $GITHUB_ENV
-          mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-${GITHUB_REF#refs/*/}.bin
       - name: Publish to GitHub Releases
         if: ${{ github.event_name == 'release' }}
         uses: softprops/action-gh-release@v0.1.5
