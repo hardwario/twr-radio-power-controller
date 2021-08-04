@@ -1,0 +1,52 @@
+name: build
+on:
+  push:
+    branches: [main, master]
+  release:
+    types: [published]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "requirements.txt"
+          update-pip: "true"
+          update-setuptools: "false"
+          update-wheel: "false"
+      - name: Build PlatformIO project
+        run: |
+          echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" | tee -a $GITHUB_ENV
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY##*/}" | tee -a $GITHUB_ENV
+
+          export PLATFORMIO_BUILD_FLAGS="-DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4"
+          pio run -e release
+          mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-rgbw144-${GITHUB_REF#refs/*/}.bin
+
+          export PLATFORMIO_BUILD_FLAGS="-DLED_STRIP_COUNT=72 -DLED_STRIP_TYPE=4"
+          pio run -e release
+          mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-rgbw72-${GITHUB_REF#refs/*/}.bin
+
+          export PLATFORMIO_BUILD_FLAGS="-DLED_STRIP_COUNT=36 -DLED_STRIP_TYPE=4"
+          pio run -e release
+          mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-rgbw36-${GITHUB_REF#refs/*/}.bin
+
+          export PLATFORMIO_BUILD_FLAGS="-DLED_STRIP_COUNT=150 -DLED_STRIP_TYPE=3"
+          pio run -e release
+          mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-rgb150-${GITHUB_REF#refs/*/}.bin
+      - name: Set helper variables
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" | tee -a $GITHUB_ENV
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY##*/}" | tee -a $GITHUB_ENV
+          mv .pio/build/release/firmware.bin ${GITHUB_REPOSITORY##*/}-${GITHUB_REF#refs/*/}.bin
+      - name: Publish to GitHub Releases
+        if: ${{ github.event_name == 'release' }}
+        uses: softprops/action-gh-release@v0.1.5
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          files: *.bin
