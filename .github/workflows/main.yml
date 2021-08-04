@@ -49,4 +49,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          files: *.bin
+          files: |
+            ${{ env.REPOSITORY_NAME }}-rgbw144-${{ env.GITHUB_TAG }}.bin
+            ${{ env.REPOSITORY_NAME }}-rgbw72-${{ env.GITHUB_TAG }}.bin
+            ${{ env.REPOSITORY_NAME }}-rgbw36-${{ env.GITHUB_TAG }}.bin
+            ${{ env.REPOSITORY_NAME }}-rgb150-${{ env.GITHUB_TAG }}.bin
+
