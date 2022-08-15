@@ -11,7 +11,7 @@ on:
 
 env:
   BUILD_TYPE: release
-  VERSION: ${GITHUB_REF##*/}
+  FW_VERSION: ${GITHUB_REF##*/}
   REPOSITORY_NAME: ${GITHUB_REPOSITORY##*/}
 
 jobs:
@@ -24,6 +24,12 @@ jobs:
     - name: Setup GNU Arm Embedded Toolchain
       uses: carlosperate/arm-none-eabi-gcc-action@v1.4.0
 
+    - name: Setup env
+      if: ${{ github.event_name == 'release' }}
+      run: |
+        echo "REPORSIORY=${{env.REPOSITORY_NAME}}" >> "$GITHUB_ENV"
+        echo "FW_VERSION=${{env.FW_VERSION}}" >> "$GITHUB_ENV"
+
     - name: Setup Ninja
       uses: ashutoshvarma/setup-ninja@v1.1
 
@@ -31,27 +37,21 @@ jobs:
       run: |
        cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4
        ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
-       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw144-${{env.VERSION}}.bin
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw144-${{env.FW_VERSION}}.bin
 
        cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=72 -DLED_STRIP_TYPE=4
        ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
-       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw72-${{env.VERSION}}.bin
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw72-${{env.FW_VERSION}}.bin
 
        cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=36 -DLED_STRIP_TYPE=4
        ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
-       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw36-${{env.VERSION}}.bin
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw36-${{env.FW_VERSION}}.bin
 
        cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=150 -DLED_STRIP_TYPE=3
        ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
-       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgb150-${{env.VERSION}}.bin
-       
-       ls .
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgb150-${{env.FW_VERSION}}.bin
 
-    - name: Setup env
-      if: ${{ github.event_name == 'release' }}
-      run: |
-        echo "REPORSIORY=${{env.REPOSITORY_NAME}}" >> "$GITHUB_ENV"
-        echo "TAG=${{env.VERSION}}" >> "$GITHUB_ENV"
+       ls .
 
     - name: Publish to GitHub Releases
       if: ${{ github.event_name == 'release' }}
@@ -60,7 +60,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         files: |
-          ${{ env.REPORSIORY }}-rgbw144-${{ env.TAG }}.bin
-          ${{ env.REPORSIORY }}-rgbw72-${{ env.TAG }}.bin
-          ${{ env.REPORSIORY }}-rgbw36-${{ env.TAG }}.bin
-          ${{ env.REPORSIORY }}-rgb150-${{ env.TAG }}.bin
+          ${{ env.REPORSIORY }}-rgbw144-${{ env.FW_VERSION }}.bin
+          ${{ env.REPORSIORY }}-rgbw72-${{ env.FW_VERSION }}.bin
+          ${{ env.REPORSIORY }}-rgbw36-${{ env.FW_VERSION }}.bin
+          ${{ env.REPORSIORY }}-rgb150-${{ env.FW_VERSION }}.bin
