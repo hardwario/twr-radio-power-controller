@@ -325,7 +325,7 @@ void application_init(void)
 
     led_strip.update_task_id = twr_scheduler_register(led_strip_update_task, NULL, 0);
 
-    twr_radio_pairing_request("power-controller", VERSION);
+    twr_radio_pairing_request("power-controller", FW_VERSION);
 
     twr_led_pulse(&led, 2000);
 }
