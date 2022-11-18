@@ -32,7 +32,7 @@ jobs:
     - name: Setup Ninja
       uses: ashutoshvarma/setup-ninja@v1.1
 
-    - name: Build firmware
+    - name: Build firmware EU
       run: |
        cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4
        ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
@@ -52,6 +52,28 @@ jobs:
 
        ls .
 
+    - name: Build firmware US
+      env:
+        BAND: 915
+      run: |
+       cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=144 -DLED_STRIP_TYPE=4
+       ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw144-${{env.FW_VERSION}}-us915.bin
+
+       cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=72 -DLED_STRIP_TYPE=4
+       ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw72-${{env.FW_VERSION}}-us915.bin
+
+       cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=36 -DLED_STRIP_TYPE=4
+       ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgbw36-${{env.FW_VERSION}}-us915.bin
+
+       cmake -B ${{github.workspace}}/obj/${{env.BUILD_TYPE}} . -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/sdk/toolchain/toolchain.cmake -DTYPE=${{env.BUILD_TYPE}} -DLED_STRIP_COUNT=150 -DLED_STRIP_TYPE=3
+       ninja -C ${{github.workspace}}/obj/${{env.BUILD_TYPE}}
+       mv ${{github.workspace}}/out/release/firmware.bin ${{env.REPOSITORY_NAME}}-rgb150-${{env.FW_VERSION}}-us915.bin
+
+       ls .
+
     - name: Publish to GitHub Releases
       if: ${{ github.event_name == 'release' }}
       uses: softprops/action-gh-release@v0.1.5
@@ -63,3 +85,7 @@ jobs:
           ${{ env.REPORSIORY }}-rgbw72-${{ env.FW_VERSION }}.bin
           ${{ env.REPORSIORY }}-rgbw36-${{ env.FW_VERSION }}.bin
           ${{ env.REPORSIORY }}-rgb150-${{ env.FW_VERSION }}.bin
+          ${{ env.REPORSIORY }}-rgbw144-${{ env.FW_VERSION }}-us915.bin
+          ${{ env.REPORSIORY }}-rgbw72-${{ env.FW_VERSION }}-us915.bin
+          ${{ env.REPORSIORY }}-rgbw36-${{ env.FW_VERSION }}-us915.bin
+          ${{ env.REPORSIORY }}-rgb150-${{ env.FW_VERSION }}-us915.bin
